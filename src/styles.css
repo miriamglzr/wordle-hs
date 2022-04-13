@@ -1,0 +1,111 @@
+.word-list{
+    justify-content: center !important;
+    min-width: 400px
+  }
+
+  .word-box{
+    border-color: #3a3a3c;
+    border-width: 2px !important;
+    border-radius: 2px;
+    border-style: solid;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: transparent;
+  height: 70px;
+   max-width: 70px;
+    font-size: 36px;
+    color: white;
+  padding: 1px;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  }
+  .word-box:focus{
+    outline: none;
+  border-color: white
+  }
+
+  .correct-letter-placement{
+    background-color: #538d4e;
+    border-color: #538d4e
+  }
+  .missed-letter-placement{
+    background-color: #b59f3b;
+    border-color: #b59f3b
+    ;
+  }
+  .wrong-letter{
+    background-color: #3a3a3c;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .correct-letter-placement
+    {
+      animation: letter-spin 1 1s ;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .missed-letter-placement
+    {
+      animation: letter-spin 1 1s ;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .wrong-letter
+    {
+      animation: letter-spin 1 1s ;
+    }
+  }
+
+  @keyframes letter-spin {
+    from {transform: scale(1,0)}
+   to {transform: scale(1, 1)}
+  }
+
+/* keyboard */
+input {
+    width: 100%;
+    height: 50px;
+    padding: 20px;
+    font-size: 20px;
+    border: none;
+    box-sizing: border-box;
+  }
+
+  .simple-keyboard {
+      margin-top: 5px;
+    max-width: 850px;
+    color: black;
+background-color: transparent;
+  }
+
+  .keyboard-letter-button{
+      width: 40px !important;
+      min-height: 40px !important;
+      background-color: #818384 !important;
+      color: white;
+      border-style: solid;
+      border-color: transparent;
+  }
+
+  .special-keyboard-button{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+
+}
+  .hg-theme-default .hg-button.hg-standardBtn {
+    width: 40px;
+    height: 40px
+}
+.hg-theme-default .hg-button {
+    background-color: #818384;
+
+    border-bottom: none;
+    border-radius: 5px;
+    box-shadow: none;
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: transparent;
+
+
+}

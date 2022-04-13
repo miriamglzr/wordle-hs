@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useKeypress from './useKeypress';
-import './index.css';
 import {isFood} from './isFood';
 
 export default function WordColumns({
@@ -10,8 +9,9 @@ export default function WordColumns({
   setWordList,
   attempt,
   attemptIndex,
+  keyboardKey,
 }) {
-  const pizza = ['p', 'i', 'z', 'z', 'a'];
+  let pizza = 'pizza';
   const [wordle, setWordle] = useState ([
     {letter: '', style: 'none'},
     {letter: '', style: 'none'},
@@ -21,6 +21,14 @@ export default function WordColumns({
   ]);
   const [length, setlength] = useState (0);
   const [blockedWord, setBlockedWord] = useState (false);
+
+  //if keyboardkeyLayout pressed
+  useEffect (
+    () => {
+      console.log (keyboardKey);
+    },
+    [keyboardKey]
+  );
 
   useKeypress (async key => {
     // console.log (wordList[1].blocked);
@@ -75,7 +83,7 @@ export default function WordColumns({
     wordle.map ((attemptLetter, i) => {
       //set background color gray for wrong letters as default
       attemptLetter.style = 'wrong-letter';
-      pizza.map ((correctLetter, j) => {
+      pizza.split ('').map ((correctLetter, j) => {
         //console.log (correctLetter);
         //if correct letter found change background color
         if (attemptLetter.letter === correctLetter) {

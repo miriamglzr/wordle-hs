@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import './App.css';
+import KeyboardLayout from './KeyboardLayout';
+import './styles.css';
 import WordColumns from './WordColumns';
 
 function App () {
@@ -11,6 +13,12 @@ function App () {
     {word: '', blocked: true},
     {word: '', blocked: true},
   ]);
+  const [keyboardKey, setKeyboardKey] = useState ('');
+
+  const onPressedKey = key => {
+    console.log ('app pressed key ' + key);
+    setKeyboardKey (key);
+  };
 
   return (
     <div className="App">
@@ -27,9 +35,13 @@ function App () {
               key={index}
               attempt={attempt}
               attemptIndex={index}
+              keyboardKey={keyboardKey}
             />
           ))}
 
+        </div>
+        <div className="container d-flex justify-content-center">
+          <KeyboardLayout onPressedKey={onPressedKey} />
         </div>
       </header>
 
