@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import useKeypress from './useKeypress';
 import './index.css';
+import {isFood} from './isFood';
 
 export default function WordColumns({
   attempts,
@@ -22,7 +23,7 @@ export default function WordColumns({
   const [blockedWord, setBlockedWord] = useState (false);
 
   useKeypress (async key => {
-    console.log (wordList[1].blocked);
+    // console.log (wordList[1].blocked);
     if (!attempt.blocked) {
       if (key === 'Backspace') {
         const newWordle = wordle;
@@ -30,10 +31,11 @@ export default function WordColumns({
         setWordle (newWordle);
         length !== 0 && setlength (length - 1);
       } else if (length === 5 && key === 'Enter') {
+        await isFood (wordle);
+
         await submitWord ();
         await setBlockedWord (true);
         await setAttempts (attempts + 1);
-
         let newWordle = [];
         wordle.map (letter => {
           newWordle.push (letter.letter);
@@ -43,9 +45,9 @@ export default function WordColumns({
         let nextWordAttempt = {word: '', blocked: false};
         const newWordList = wordList;
         wordList.splice (attemptIndex, 1, wordAttempt);
-        wordList.splice (attemptIndex + 1, 1, nextWordAttempt);
+        attemptIndex !== 4 &&
+          wordList.splice (attemptIndex + 1, 1, nextWordAttempt);
         await setWordList (newWordList);
-        await setBlockedWord (true);
         await setlength (0);
 
         // alert (pizza);
@@ -54,11 +56,16 @@ export default function WordColumns({
         alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
         let blank = wordle.map (object => object.letter).indexOf ('');
-        // console.log (blank);
+        console.log (blank);
+        // if (blank >= 0) {
         let newWord = wordle;
-        newWord.splice (blank, 1, {letter: key.toLowerCase (), style: 'none'});
+        newWord.splice (blank, 1, {
+          letter: key.toLowerCase (),
+          style: 'none',
+        });
         setWordle (newWord);
         setlength (length + 1);
+        // }
       }
     }
   });
