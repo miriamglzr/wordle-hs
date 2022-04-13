@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-
+import useKeypress from './useKeypress';
 import './styles.css';
 
 export default function KeyboardLayout({onPressedKey}) {
@@ -25,7 +25,9 @@ export default function KeyboardLayout({onPressedKey}) {
     /**
      * If you want to handle the shift and caps lock buttons
      */
-    if (button === '{shift}' || button === '{lock}') handleShift ();
+    if (button === '{enter}') button = 'Enter';
+    if (button === '{bksp}') button = 'Backspace';
+
     onPressedKey (button);
   };
 
@@ -37,11 +39,11 @@ export default function KeyboardLayout({onPressedKey}) {
 
   return (
     <div className="App">
-      <input
+      {/* <input
         value={input}
         placeholder={'Tap on the virtual keyboard to start'}
         onChange={onChangeInput}
-      />
+      /> */}
       <Keyboard
         keyboardRef={r => (keyboard.current = r)}
         layoutName={layout}

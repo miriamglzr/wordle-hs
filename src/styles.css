@@ -99,7 +99,7 @@ background-color: transparent;
 }
 .hg-theme-default .hg-button {
     background-color: #818384;
-
+color: white;
     border-bottom: none;
     border-radius: 5px;
     box-shadow: none;

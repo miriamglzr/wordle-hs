@@ -3,6 +3,7 @@ import './App.css';
 import KeyboardLayout from './KeyboardLayout';
 import './styles.css';
 import WordColumns from './WordColumns';
+import database from './database.json';
 
 function App () {
   const [attempts, setAttempts] = useState (0);
@@ -14,6 +15,7 @@ function App () {
     {word: '', blocked: true},
   ]);
   const [keyboardKey, setKeyboardKey] = useState ('');
+  const [selectedFood, setSelectedFood] = useState (database[61].name);
 
   const onPressedKey = key => {
     console.log ('app pressed key ' + key);
@@ -36,6 +38,7 @@ function App () {
               attempt={attempt}
               attemptIndex={index}
               keyboardKey={keyboardKey}
+              selectedFood={selectedFood}
             />
           ))}
 
