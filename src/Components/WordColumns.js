@@ -11,6 +11,7 @@ export default function WordColumns({
   attemptIndex,
   keyboardKey,
   selectedFood,
+  setUsedLetters,
 }) {
   let pizza = selectedFood;
   const [wordle, setWordle] = useState ([
@@ -61,15 +62,21 @@ export default function WordColumns({
           newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
 
         await setWordList (newWordList);
-        await setAttempts (attempts + 1);
+        await setUsedLetters (wordle);
         await setlength (0);
+        await setAttempts (attempts + 1);
       } else if (length === 5 && key.length === 1 && /[a-zA-Z]/.test (key)) {
-        //SHAKE
+        //SHAKE on attempt to add another letter and remove class
         document
           .getElementById ('wordRow' + attemptIndex)
           .classList.add ('rowbox');
-        //document.getElementById ('wordRow').classList.remove ('rowbox');
-        alert ('5 letters max');
+        setTimeout (function () {
+          document
+            .getElementById ('wordRow' + attemptIndex)
+            .classList.remove ('rowbox');
+        }, 1500);
+
+        // alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
         //get the next "" or empty letter
         let blank = wordle.map (object => object.letter).indexOf ('');
@@ -101,11 +108,13 @@ export default function WordColumns({
         attemptLetter.style = 'wrong-letter';
       }
       //MAYBE for different timing  missed letter placement
-      return setWordle (newWord);
+      setTimeout (function () {
+        setWordle (newWord);
+      }, 100000);
     });
 
     //(await wordArr.join ('')) === pizza && alert ('Good job!');
-    return setWordle (newWord);
+    // return setWordle (newWord);
   };
 
   return (

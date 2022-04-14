@@ -26,17 +26,18 @@
   border-color: white
   }
 
+
   .correct-letter-placement{
-    background-color: #538d4e;
+    background-color: #538d4e !important;
     border-color: #538d4e
   }
   .missed-letter-placement{
-    background-color: #b59f3b;
+    background-color: #b59f3b !important;
     border-color: #b59f3b
     ;
   }
   .wrong-letter{
-    background-color: #3a3a3c;
+    background-color: #3a3a3c !important;
   }
   @media (prefers-reduced-motion: no-preference) {
     .correct-letter-placement
@@ -63,6 +64,8 @@
   }
 
 /* keyboard */
+
+
 input {
     width: 100%;
     height: 50px;
@@ -82,7 +85,7 @@ background-color: transparent;
   .keyboard-letter-button{
       width: 40px !important;
       min-height: 40px !important;
-      background-color: #818384 !important;
+      background-color: #818384 ;
       color: white;
       border-style: solid;
       border-color: transparent;

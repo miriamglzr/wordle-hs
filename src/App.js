@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import './styles/App.css';
 import KeyboardLayout from './Components/KeyboardLayout';
 import './styles/styles.css';
@@ -18,15 +18,25 @@ function App () {
     {word: '', blocked: true},
     {word: '', blocked: true},
   ]);
+  let number = Math.floor (Math.random () * 93);
   const [keyboardKey, setKeyboardKey] = useState ('');
-  const [selectedFood, setSelectedFood] = useState (database[61].name);
+  const [selectedFood] = useState (database[number].name);
+  const [usedLetters, setUsedLetters] = useState ([]);
 
   const onPressedKey = key => {
     // listen to keyboardLayout key pressed and clear
     setKeyboardKey (key);
     setKeyboardKey ('');
   };
-
+  useEffect (
+    () => {
+      if (attempts === 5)
+        setTimeout (function () {
+          alert (selectedFood.toUpperCase ());
+        }, 2000);
+    },
+    [attempts]
+  );
   return (
     <div className="App">
 
@@ -44,12 +54,16 @@ function App () {
               attemptIndex={index}
               keyboardKey={keyboardKey}
               selectedFood={selectedFood}
+              setUsedLetters={setUsedLetters}
             />
           ))}
 
         </div>
         <div className="container d-flex justify-content-center">
-          <KeyboardLayout onPressedKey={onPressedKey} />
+          <KeyboardLayout
+            onPressedKey={onPressedKey}
+            usedLetters={usedLetters}
+          />
         </div>
       </header>
 
