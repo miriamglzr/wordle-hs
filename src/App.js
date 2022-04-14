@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import KeyboardLayout from './KeyboardLayout';
 import './styles.css';
@@ -18,8 +18,10 @@ function App () {
   const [selectedFood, setSelectedFood] = useState (database[61].name);
 
   const onPressedKey = key => {
-    console.log ('app pressed key ' + key);
+    // console.log ('app pressed key ' + key);
+
     setKeyboardKey (key);
+    setKeyboardKey ('');
   };
 
   return (

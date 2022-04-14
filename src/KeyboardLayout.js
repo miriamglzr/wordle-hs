@@ -1,53 +1,39 @@
 import React, {useRef, useState} from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-import useKeypress from './useKeypress';
 import './styles.css';
 
 export default function KeyboardLayout({onPressedKey}) {
-  const [input, setInput] = useState ('');
-  const [layout, setLayout] = useState ('default');
+  const [length, setLength] = useState (0);
+
   const keyboard = useRef ();
 
-  const onChange = input => {
-    setInput (input);
-    console.log ('Input changed', input);
-  };
-
-  const handleShift = () => {
-    const newLayoutName = layout === 'default' ? 'shift' : 'default';
-    setLayout (newLayoutName);
-  };
-
-  const onKeyPress = button => {
+  const onKeyPress = async button => {
     console.log ('Button pressed', button);
-
     /**
-     * If you want to handle the shift and caps lock buttons
+     * cspecial actions for enter or backspace in condition to length
      */
-    if (button === '{enter}') button = 'Enter';
-    if (button === '{bksp}') button = 'Backspace';
-
-    onPressedKey (button);
-  };
-
-  const onChangeInput = event => {
-    const input = event.target.value;
-    setInput (input);
-    keyboard.current.setInput (input);
+    if (button === '{enter}') {
+      button = 'Enter';
+      onPressedKey (button);
+      if (length === 5) {
+        setLength (0);
+      }
+    } else if (button === '{bksp}') {
+      button = 'Backspace';
+      onPressedKey (button);
+      if (length !== 0) setLength (length - 1);
+    } else if (length !== 5) {
+      setLength (length + 1);
+      onPressedKey (button);
+    }
   };
 
   return (
     <div className="App">
-      {/* <input
-        value={input}
-        placeholder={'Tap on the virtual keyboard to start'}
-        onChange={onChangeInput}
-      /> */}
+
       <Keyboard
         keyboardRef={r => (keyboard.current = r)}
-        layoutName={layout}
-        onChange={onChange}
         onKeyPress={onKeyPress}
         layout={{
           default: [
