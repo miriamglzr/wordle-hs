@@ -11,7 +11,6 @@ export default function WordColumns({
   attemptIndex,
   keyboardKey,
   selectedFood,
-  sameLetter,
 }) {
   let pizza = selectedFood;
   const [wordle, setWordle] = useState ([
@@ -24,12 +23,12 @@ export default function WordColumns({
   const [length, setlength] = useState (0);
   const [blockedWord, setBlockedWord] = useState (false);
 
-  //if keyboardkeyLayout pressed
+  //listen if keyboardkeyLayout pressed
   useEffect (
     () => {
       checkKey (keyboardKey);
     },
-    [keyboardKey, sameLetter]
+    [keyboardKey]
   );
 
   const checkKey = async key => {
@@ -41,49 +40,39 @@ export default function WordColumns({
         length !== 0 && setlength (length - 1);
       } else if (length === 5 && key === 'Enter') {
         await isFood (wordle);
-
         await submitWord ();
         await setBlockedWord (true);
-        await setAttempts (attempts + 1);
-        let newWordle = [];
-        wordle.map (letter => {
-          newWordle.push (letter.letter);
-        });
-        newWordle = newWordle.join ('');
+
+        let newWordle = wordle
+          .map (letter => {
+            return letter.letter;
+          })
+          .join ('');
         let wordAttempt = {word: newWordle, blocked: true};
+
         let nextWordAttempt = {word: '', blocked: false};
         const newWordList = wordList;
-        wordList.splice (attemptIndex, 1, wordAttempt);
+        newWordList.splice (attemptIndex, 1, wordAttempt);
         attemptIndex !== 4 &&
-          wordList.splice (attemptIndex + 1, 1, nextWordAttempt);
+          newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
+        console.log (newWordList);
         await setWordList (newWordList);
+        await setAttempts (attempts + 1);
         await setlength (0);
         console.log (newWordList);
-        // alert (pizza);
-        /// check if correct word
       } else if (length === 5 && key.length === 1 && /[a-zA-Z]/.test (key)) {
         alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
+        //get the next "" or empty letter
         let blank = wordle.map (object => object.letter).indexOf ('');
-        console.log ('this attempt is not blocked is false' + attempt.blocked);
-        console.log (blank);
-        console.log (blockedWord);
-        console.log (wordList.indexOf[attempt]);
 
-        if (blank >= 0) {
-          let newWord = wordle;
-          newWord.splice (blank, 1, {
-            letter: key.toLowerCase (),
-            style: 'none',
-          });
-          setWordle (newWord);
-          setlength (length + 1);
-        } else {
-          let point = wordList[attemptIndex];
-          console.log ('ATTEMPT' + attemptIndex);
-          console.log (point);
-          //  await setWordList ((wordList[1].word = key));
-        }
+        let newWord = wordle;
+        newWord.splice (blank, 1, {
+          letter: key.toLowerCase (),
+          style: 'none',
+        });
+        setWordle (newWord);
+        setlength (length + 1);
       }
     }
   };
@@ -92,7 +81,7 @@ export default function WordColumns({
     checkKey (key);
   });
 
-  const submitWord = async () => {
+  const submitWord = () => {
     let newWord = wordle;
     //let wordArr = newWord.map (object => object.letter);
     let correctwordArr = pizza.split ('');
@@ -109,7 +98,7 @@ export default function WordColumns({
     });
 
     //(await wordArr.join ('')) === pizza && alert ('Good job!');
-    return await setWordle (newWord);
+    return setWordle (newWord);
   };
 
   return (
@@ -118,19 +107,19 @@ export default function WordColumns({
       <div className="row align-items-center word-list">
 
         <div className={`col word-box ${wordle[0].style}`}>
-          <text>{wordle[0].letter}</text>
+          <p>{wordle[0].letter}</p>
         </div>
         <div className={`col word-box ${wordle[1].style}`}>
-          <text>{wordle[1].letter}</text>
+          <p>{wordle[1].letter}</p>
         </div>
         <div className={`col word-box ${wordle[2].style}`}>
-          <text>{wordle[2].letter}</text>
+          <p>{wordle[2].letter}</p>
         </div>
         <div className={`col word-box ${wordle[3].style}`}>
-          <text>{wordle[3].letter}</text>
+          <p>{wordle[3].letter}</p>
         </div>
         <div className={`col word-box ${wordle[4].style}`}>
-          <text>{wordle[4].letter}</text>
+          <p>{wordle[4].letter}</p>
         </div>
       </div>
 

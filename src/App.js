@@ -18,8 +18,7 @@ function App () {
   const [selectedFood, setSelectedFood] = useState (database[61].name);
 
   const onPressedKey = key => {
-    // console.log ('app pressed key ' + key);
-
+    // listen to keyboardLayout key pressed and clear
     setKeyboardKey (key);
     setKeyboardKey ('');
   };
