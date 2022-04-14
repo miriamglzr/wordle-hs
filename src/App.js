@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import './App.css';
 import KeyboardLayout from './KeyboardLayout';
 import './styles.css';
@@ -6,6 +6,10 @@ import WordColumns from './WordColumns';
 import database from './database.json';
 
 function App () {
+  //for grid rows are based wordList arrray which is composed by 5 attempts from parent App
+  //rendering 5 times each "wordColumns" component
+  //each WordColumns component consists of 5 letterbox divided in columns with individual properties for letter and style
+
   const [attempts, setAttempts] = useState (0);
   const [wordList, setWordList] = useState ([
     {word: '', blocked: false},

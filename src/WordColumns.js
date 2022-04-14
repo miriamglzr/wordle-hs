@@ -21,7 +21,6 @@ export default function WordColumns({
     {letter: '', style: 'none'},
   ]);
   const [length, setlength] = useState (0);
-  const [blockedWord, setBlockedWord] = useState (false);
 
   //listen if keyboardkeyLayout pressed
   useEffect (
@@ -31,7 +30,13 @@ export default function WordColumns({
     [keyboardKey]
   );
 
+  //listen if real keayboard pressed
+  useKeypress (key => {
+    checkKey (key);
+  });
+
   const checkKey = async key => {
+    //check if the line is not blocked
     if (!attempt.blocked) {
       if (key === 'Backspace') {
         const newWordle = wordle;
@@ -39,27 +44,25 @@ export default function WordColumns({
         setWordle (newWordle);
         length !== 0 && setlength (length - 1);
       } else if (length === 5 && key === 'Enter') {
+        //if the word is 5 letters long, sumbit answer
         await isFood (wordle);
         await submitWord ();
-        await setBlockedWord (true);
-
         let newWordle = wordle
           .map (letter => {
             return letter.letter;
           })
           .join ('');
+        //set blocked row and release the next one
         let wordAttempt = {word: newWordle, blocked: true};
-
         let nextWordAttempt = {word: '', blocked: false};
         const newWordList = wordList;
         newWordList.splice (attemptIndex, 1, wordAttempt);
         attemptIndex !== 4 &&
           newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
-        console.log (newWordList);
+
         await setWordList (newWordList);
         await setAttempts (attempts + 1);
         await setlength (0);
-        console.log (newWordList);
       } else if (length === 5 && key.length === 1 && /[a-zA-Z]/.test (key)) {
         alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
@@ -77,24 +80,22 @@ export default function WordColumns({
     }
   };
 
-  useKeypress (key => {
-    checkKey (key);
-  });
-
   const submitWord = () => {
     let newWord = wordle;
     //let wordArr = newWord.map (object => object.letter);
     let correctwordArr = pizza.split ('');
 
     wordle.map ((attemptLetter, i) => {
-      //set background color gray for wrong letters as default
-      attemptLetter.style = 'wrong-letter';
-
       if (attemptLetter.letter === correctwordArr[i]) {
         newWord[i].style = 'correct-letter-placement';
       } else if (correctwordArr.includes (attemptLetter.letter)) {
         newWord[i].style = 'missed-letter-placement';
+      } else {
+        //set background color gray for wrong letters as default
+        attemptLetter.style = 'wrong-letter';
       }
+      //MAYBE for different timing  missed letter placement
+      return setWordle (newWord);
     });
 
     //(await wordArr.join ('')) === pizza && alert ('Good job!');
@@ -103,26 +104,15 @@ export default function WordColumns({
 
   return (
     <div className="container">
-
       <div className="row align-items-center word-list">
-
-        <div className={`col word-box ${wordle[0].style}`}>
-          <p>{wordle[0].letter}</p>
-        </div>
-        <div className={`col word-box ${wordle[1].style}`}>
-          <p>{wordle[1].letter}</p>
-        </div>
-        <div className={`col word-box ${wordle[2].style}`}>
-          <p>{wordle[2].letter}</p>
-        </div>
-        <div className={`col word-box ${wordle[3].style}`}>
-          <p>{wordle[3].letter}</p>
-        </div>
-        <div className={`col word-box ${wordle[4].style}`}>
-          <p>{wordle[4].letter}</p>
-        </div>
+        {wordle.map ((letterBox, i) => {
+          return (
+            <div className={`col word-box ${letterBox.style}`} key={i}>
+              <p>{letterBox.letter}</p>
+            </div>
+          );
+        })}
       </div>
-
     </div>
   );
 }
