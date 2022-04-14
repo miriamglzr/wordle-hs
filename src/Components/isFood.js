@@ -1,4 +1,4 @@
-import database from './database.json';
+import database from '../database.json';
 
 export const isFood = wordArr => {
   let word = wordArr.map (element => element.letter).join ('');

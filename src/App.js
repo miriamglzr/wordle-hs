@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import './App.css';
-import KeyboardLayout from './KeyboardLayout';
-import './styles.css';
-import WordColumns from './WordColumns';
+import './styles/App.css';
+import KeyboardLayout from './Components/KeyboardLayout';
+import './styles/styles.css';
+import WordColumns from './Components/WordColumns';
 import database from './database.json';
 
 function App () {

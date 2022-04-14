@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-import './styles.css';
 
 export default function KeyboardLayout({onPressedKey}) {
   const [length, setLength] = useState (0);

@@ -64,6 +64,11 @@ export default function WordColumns({
         await setAttempts (attempts + 1);
         await setlength (0);
       } else if (length === 5 && key.length === 1 && /[a-zA-Z]/.test (key)) {
+        //SHAKE
+        document
+          .getElementById ('wordRow' + attemptIndex)
+          .classList.add ('rowbox');
+        //document.getElementById ('wordRow').classList.remove ('rowbox');
         alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
         //get the next "" or empty letter
@@ -86,6 +91,7 @@ export default function WordColumns({
     let correctwordArr = pizza.split ('');
 
     wordle.map ((attemptLetter, i) => {
+      //CHANGE CLASS OF EACH LETTER BOX
       if (attemptLetter.letter === correctwordArr[i]) {
         newWord[i].style = 'correct-letter-placement';
       } else if (correctwordArr.includes (attemptLetter.letter)) {
@@ -104,7 +110,10 @@ export default function WordColumns({
 
   return (
     <div className="container">
-      <div className="row align-items-center word-list">
+      <div
+        className="row align-items-center word-list"
+        id={'wordRow' + attemptIndex}
+      >
         {wordle.map ((letterBox, i) => {
           return (
             <div className={`col word-box ${letterBox.style}`} key={i}>
