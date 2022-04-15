@@ -1,6 +1,33 @@
+
+h1{
+  font-family: 'Inter', sans-serif;
+font-family: 'PT Serif', serif;
+display: inline
+}
+
+.grid{
+  height: 55vh;
+  align-items: stretch!important;
+
+}
+.grow{
+  border-color: gray !important;
+  animation: grow 0.1s
+}
+
+@keyframes grow {
+  from {
+      transform: scale(1.1);
+  }
+  to {
+      transform: scale(1);
+  }
+}
+
 .word-list{
     justify-content: center !important;
-    min-width: 400px
+    min-width: 400px;
+
   }
 
   .word-box{
@@ -29,7 +56,8 @@
 
   .correct-letter-placement{
     background-color: #538d4e !important;
-    border-color: #538d4e
+    border-color: #538d4e;
+
   }
   .missed-letter-placement{
     background-color: #b59f3b !important;
@@ -43,6 +71,7 @@
     .correct-letter-placement
     {
       animation: letter-spin 1 1s ;
+
     }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -110,9 +139,20 @@ color: white;
     border-style: solid;
     border-color: transparent;
 
-
 }
 
+.correct-letter-keyboard{
+  background-color: #538d4e !important;
+  border-color: #538d4e
+}
+.missed-letter-keyboard{
+  background-color: #b59f3b !important;
+  border-color: #b59f3b
+  ;
+}
+.wrong-letter-keyboard{
+  background-color: #3a3a3c !important;
+}
 .rowbox {
     animation: shake 0.2s;
     animation-iteration-count: 1;

@@ -79,14 +79,24 @@ export default function WordColumns({
         // alert ('5 letters max');
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
         //get the next "" or empty letter
-        let blank = wordle.map (object => object.letter).indexOf ('');
+        let blankIndex = wordle.map (object => object.letter).indexOf ('');
 
         let newWord = wordle;
-        newWord.splice (blank, 1, {
+        newWord.splice (blankIndex, 1, {
           letter: key.toLowerCase (),
           style: 'none',
         });
         setWordle (newWord);
+        //grow box animation as it is typed
+        document
+          .getElementById ('letter-box' + blankIndex + attemptIndex)
+          .classList.add ('grow');
+        //remove class animation
+        setTimeout (function () {
+          document
+            .getElementById ('letter-box' + blankIndex + attemptIndex)
+            .classList.remove ('grow');
+        }, 600);
         setlength (length + 1);
       }
     }
@@ -107,14 +117,10 @@ export default function WordColumns({
         //set background color gray for wrong letters as default
         attemptLetter.style = 'wrong-letter';
       }
-      //MAYBE for different timing  missed letter placement
-      setTimeout (function () {
-        setWordle (newWord);
-      }, 100000);
     });
-
+    return setWordle (newWord);
     //(await wordArr.join ('')) === pizza && alert ('Good job!');
-    // return setWordle (newWord);
+    // ;
   };
 
   return (
@@ -125,7 +131,12 @@ export default function WordColumns({
       >
         {wordle.map ((letterBox, i) => {
           return (
-            <div className={`col word-box ${letterBox.style}`} key={i}>
+            <div
+              className={`col word-box ${letterBox.style} `}
+              key={i}
+              id={'letter-box' + i + attemptIndex}
+              style={{animationDelay: i * 100 + 'ms'}}
+            >
               <p>{letterBox.letter}</p>
             </div>
           );

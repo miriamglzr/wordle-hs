@@ -13,15 +13,15 @@ export default function KeyboardLayout({onPressedKey, usedLetters}) {
       buttons: '{enter} {bksp}',
     },
     {
-      class: 'wrong-letter',
+      class: 'wrong-letter-keyboard',
       buttons: ' ',
     },
     {
-      class: 'correct-letter-placement',
+      class: 'correct-letter-keyboard',
       buttons: ' ',
     },
     {
-      class: 'missed-letter-placement',
+      class: 'missed-letter-keyboard',
       buttons: ' ',
     },
   ];
@@ -31,6 +31,7 @@ export default function KeyboardLayout({onPressedKey, usedLetters}) {
   const [correct, setCorrect] = useState ([' ']);
   const [misplaced, setMisplaced] = useState ([' ']);
 
+  // listen to change keyboard buttons
   useEffect (
     () => {
       changeTheme (usedLetters);
@@ -44,19 +45,32 @@ export default function KeyboardLayout({onPressedKey, usedLetters}) {
     let misplacedLetters = misplaced;
     let correctLetters = correct;
     arr.map ((box, i) => {
-      if (box.style === 'wrong-letter' && !wrong.includes (box.letter)) {
+      if (
+        box.style === 'wrong-letter' &&
+        !wrong[0].split (' ').includes (box.letter)
+      ) {
         wrongLetters = [...wrongLetters, box.letter];
         setWrong ([wrongLetters.join (' ')]);
       } else if (
         box.style === 'correct-letter-placement' &&
-        !correctLetters.includes (box.letter)
+        !correctLetters[0].split (' ').includes (box.letter)
       ) {
+        // let remove = misplacedLetters[0].split (' ').indexOf (box.letter);
+        // console.log (remove);
+        // if (remove !== -1)
+        //   misplacedLetters = misplacedLetters[0]
+        //     .split (' ')
+        //     .splice (remove, 1, 0);
+
+        // console.log (misplacedLetters);
         correctLetters = [...correctLetters, box.letter];
         setCorrect ([correctLetters.join (' ')]);
       } else if (
         box.style === 'missed-letter-placement' &&
-        !misplacedLetters.includes (box.letter)
+        !misplacedLetters[0].split (' ').includes (box.letter) &&
+        !correctLetters[0].split (' ').includes (box.letter)
       ) {
+        console.log (misplaced);
         misplacedLetters = [...misplacedLetters, box.letter];
         setMisplaced ([misplacedLetters.join (' ')]);
       }
@@ -92,7 +106,7 @@ export default function KeyboardLayout({onPressedKey, usedLetters}) {
   };
 
   return (
-    <div className="App">
+    <div>
 
       <Keyboard
         keyboardRef={r => (keyboard.current = r)}

@@ -4,6 +4,7 @@ import KeyboardLayout from './Components/KeyboardLayout';
 import './styles/styles.css';
 import WordColumns from './Components/WordColumns';
 import database from './database.json';
+import Navbar from './Components/Navbar';
 
 function App () {
   //for grid rows are based wordList arrray which is composed by 5 attempts from parent App
@@ -38,11 +39,12 @@ function App () {
     [attempts]
   );
   return (
-    <div className="App">
+    <div className="App ">
 
-      <header className="App-header">
-        <h1 className="mt-3">Food Wordle</h1>
-        <div className="container mt-5 word-list">
+      <header className="App-header ">
+        <Navbar />
+
+        <div className="container mt-5  mb-5 word-list grid">
           {wordList.map ((attempt, index) => (
             <WordColumns
               setAttempts={setAttempts}
