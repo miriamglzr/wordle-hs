@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
-import './styles/App.css';
+
 import KeyboardLayout from './Components/KeyboardLayout';
-import './styles/styles.css';
 import WordColumns from './Components/WordColumns';
 import database from './database.json';
 import Navbar from './Components/Navbar';
+import Modal from './Components/Modal';
+import './styles/App.css';
+import './styles/styles.css';
+import 'antd/dist/antd.css';
 
 function App () {
   //for grid rows are based wordList arrray which is composed by 5 attempts from parent App
@@ -23,18 +26,17 @@ function App () {
   const [keyboardKey, setKeyboardKey] = useState ('');
   const [selectedFood] = useState (database[number].name);
   const [usedLetters, setUsedLetters] = useState ([]);
+  const [message, setMessage] = useState ('');
 
   const onPressedKey = key => {
     // listen to keyboardLayout key pressed and clear
     setKeyboardKey (key);
     setKeyboardKey ('');
   };
+
   useEffect (
     () => {
-      if (attempts === 5)
-        setTimeout (function () {
-          alert (selectedFood.toUpperCase ());
-        }, 2000);
+      if (attempts === 5) setMessage (selectedFood.toUpperCase ());
     },
     [attempts]
   );
@@ -43,7 +45,7 @@ function App () {
 
       <header className="App-header ">
         <Navbar />
-
+        <Modal message={message} />
         <div className="container mt-5  mb-5 word-list grid">
           {wordList.map ((attempt, index) => (
             <WordColumns
@@ -57,6 +59,7 @@ function App () {
               keyboardKey={keyboardKey}
               selectedFood={selectedFood}
               setUsedLetters={setUsedLetters}
+              setMessage={setMessage}
             />
           ))}
 

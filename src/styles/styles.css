@@ -2,7 +2,8 @@
 h1{
   font-family: 'Inter', sans-serif;
 font-family: 'PT Serif', serif;
-display: inline
+display: inline;
+color: white
 }
 
 .grid{

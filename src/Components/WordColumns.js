@@ -12,6 +12,7 @@ export default function WordColumns({
   keyboardKey,
   selectedFood,
   setUsedLetters,
+  setMessage,
 }) {
   let pizza = selectedFood;
   const [wordle, setWordle] = useState ([
@@ -36,6 +37,7 @@ export default function WordColumns({
     checkKey (key);
   });
 
+  //INPUT VALIDATION
   const checkKey = async key => {
     //check if the line is not blocked
     if (!attempt.blocked) {
@@ -46,7 +48,8 @@ export default function WordColumns({
         length !== 0 && setlength (length - 1);
       } else if (length === 5 && key === 'Enter') {
         //if the word is 5 letters long, sumbit answer
-        await isFood (wordle);
+        if (await !isFood (wordle))
+          setMessage ('Sorry, this word is not in our food list');
         await submitWord ();
         let newWordle = wordle
           .map (letter => {
@@ -59,7 +62,7 @@ export default function WordColumns({
         newWordList.splice (attemptIndex, 1, wordAttempt);
         //if correct end game
         if (newWordle === pizza) {
-          alert ('Nice Job!');
+          setMessage ('Nice!');
         } else {
           //set blocked row and release the next one
           let nextWordAttempt = {word: '', blocked: false};
@@ -67,7 +70,6 @@ export default function WordColumns({
           attemptIndex !== 4 &&
             newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
         }
-
         await setWordList (newWordList);
         await setUsedLetters (wordle);
         await setlength (0);

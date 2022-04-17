@@ -9,6 +9,6 @@ export const isFood = wordArr => {
       return (exists = true);
     }
   });
-  !exists && alert ('Sorry, this word is not in our food list');
+
   return exists;
 };
