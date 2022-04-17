@@ -53,13 +53,20 @@ export default function WordColumns({
             return letter.letter;
           })
           .join ('');
-        //set blocked row and release the next one
+        //save aand update
         let wordAttempt = {word: newWordle, blocked: true};
-        let nextWordAttempt = {word: '', blocked: false};
         const newWordList = wordList;
         newWordList.splice (attemptIndex, 1, wordAttempt);
-        attemptIndex !== 4 &&
-          newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
+        //if correct end game
+        if (newWordle === pizza) {
+          alert ('Nice Job!');
+        } else {
+          //set blocked row and release the next one
+          let nextWordAttempt = {word: '', blocked: false};
+          //newWordList.splice (attemptIndex, 1, wordAttempt);
+          attemptIndex !== 4 &&
+            newWordList.splice (attemptIndex + 1, 1, nextWordAttempt);
+        }
 
         await setWordList (newWordList);
         await setUsedLetters (wordle);
@@ -96,7 +103,7 @@ export default function WordColumns({
           document
             .getElementById ('letter-box' + blankIndex + attemptIndex)
             .classList.remove ('grow');
-        }, 600);
+        }, 500);
         setlength (length + 1);
       }
     }
