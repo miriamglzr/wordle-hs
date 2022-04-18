@@ -6,6 +6,9 @@ display: inline;
 color: white
 }
 
+.pointer{
+  cursor: pointer
+}
 .grid{
   height: 55vh;
   align-items: stretch!important;

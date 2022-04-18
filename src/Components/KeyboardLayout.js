@@ -70,7 +70,7 @@ export default function KeyboardLayout({onPressedKey, usedLetters}) {
         !misplacedLetters[0].split (' ').includes (box.letter) &&
         !correctLetters[0].split (' ').includes (box.letter)
       ) {
-        console.log (misplaced);
+        //  console.log (misplaced);
         misplacedLetters = [...misplacedLetters, box.letter];
         setMisplaced ([misplacedLetters.join (' ')]);
       }

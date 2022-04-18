@@ -50,6 +50,7 @@ export default function WordColumns({
         //if the word is 5 letters long, sumbit answer
         if (await !isFood (wordle))
           setMessage ('Sorry, this word is not in our food list');
+        setMessage ('');
         await submitWord ();
         let newWordle = wordle
           .map (letter => {
@@ -85,7 +86,7 @@ export default function WordColumns({
             .classList.remove ('rowbox');
         }, 1500);
 
-        // alert ('5 letters max');
+        // check if its a letter
       } else if (/[a-zA-Z]/.test (key) && key.length === 1) {
         //get the next "" or empty letter
         let blankIndex = wordle.map (object => object.letter).indexOf ('');

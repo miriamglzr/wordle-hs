@@ -36,7 +36,8 @@ function App () {
 
   useEffect (
     () => {
-      if (attempts === 5) setMessage (selectedFood.toUpperCase ());
+      if (attempts === 5 && message !== 'Nice!')
+        setMessage (selectedFood.toUpperCase ());
     },
     [attempts]
   );
