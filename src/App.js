@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import KeyboardLayout from './Components/KeyboardLayout';
 import WordColumns from './Components/WordColumns';
 import database from './database.json';
-import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar/Navbar';
 import Modal from './Components/Modal';
 import './styles/App.css';
 import './styles/styles.css';
@@ -45,6 +45,7 @@ function App () {
     <div className="App ">
 
       <header className="App-header ">
+
         <Navbar />
         <Modal message={message} />
         <div className="container mt-5  mb-5 word-list grid">

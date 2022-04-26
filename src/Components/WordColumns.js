@@ -57,7 +57,7 @@ export default function WordColumns({
             return letter.letter;
           })
           .join ('');
-        //save aand update
+        //save and update
         let wordAttempt = {word: newWordle, blocked: true};
         const newWordList = wordList;
         newWordList.splice (attemptIndex, 1, wordAttempt);

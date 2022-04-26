@@ -1,0 +1,44 @@
+.storybook-letterbox {
+	border-color: #3a3a3c;
+	border-style: solid !important;
+	border-width: 0;
+	border-radius: 30%;
+	border-color: white;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	background-color: transparent;
+	max-height: 50px !important;
+	width: 50px !important;
+	font-size: 30px;
+	color: white;
+	padding: 0;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+.storybook-letterbox--correctLetter {
+	color: white;
+	background-color: #538d4e !important;
+	border-color: #538d4e;
+}
+.storybook-letterbox--misplacedLetter {
+	background-color: #b59f3b !important;
+	border-color: #b59f3b;
+}
+.storybook-letterbox--incorrectLetter {
+	background-color: #3a3a3c !important;
+	border-color: #3a3a3c;
+}
+.storybook-letterbox--small {
+	font-size: 12px;
+	padding: 10px 16px;
+}
+.storybook-letterbox--medium {
+	font-size: 14px;
+	padding: 11px 20px;
+}
+.storybook-letterbox--large {
+	font-size: 16px;
+	padding: 12px 24px;
+}
